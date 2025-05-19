@@ -15,14 +15,16 @@ var encrypt = (/*String*/data, /*String*/key) => {
 		codes.push(data.charCodeAt(i));
 	}
 	var instructions = Math.abs(hash(key));
-	if (String(instructions).length > 10) {
-		instructions = parseInt(String(instructions).match(/[0-9]{10}/)[0]);
-		console.log("Too long");
-	} else if (String(instructions).length < 10) {
-		instructions = parseInt(String(instructions).padEnd(10, '0'));
-		console.log("Too short");
+	if (String(instructions).length > codes.length) {
+		instructions = parseInt(String(instructions).match(new RegExp(`[0-9]{${codes.length}}`))[0]);
+	} else if (String(instructions).length < codes.length) {
+		instructions = parseInt(String(instructions).padEnd(codes.length, '0'));
 	}
 	console.log(codes, instructions);
+	instructions = String(instructions);
+	for (let i = 0; i < instructions.length; i ++) {
+		
+	}
 };
 
 encrypt("hello", "h");
