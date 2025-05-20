@@ -41,17 +41,14 @@ var decrypt = (/*String*/data, /*String*/key) => {
 		instructions = parseInt(String(instructions) + String(instructions)[0]);
 	}
 	instructions = String(instructions);
-	for (let i = instructions.length - 1; i > 0; --i) {
+	for (let i = instructions.length - 1; i > 0; i--) {
 		let instructiontype = instructions[i] % 3;
-		console.log(instructiontype);
 		for (let k = 0; k < codes.length; k ++) {
-			console.log("before", (instructiontype + 1) * nthprime(k), `(${instructiontype} + 1) * ${nthprime(k)}`);
-			codes[k] = String(parseInt(codes[k]) - (instructiontype + 1) * nthprime(k));
+			codes[k] = String(parseInt(codes[k]) - ((instructiontype + 1) * nthprime(k)));
 		}
 	}
-	return codes.map(a => String.fromCharCode(parseInt(a)));
+	return codes.map(a => String.fromCharCode(parseInt(a))).join("");
 };
 
-console.log([0,1,2,3].map(nthprime));
-console.log("testing encrypt of 'a' with key 'a'", encrypt("a", "a"));
-console.log("testing decrypt of 'a' with key 'a'", decrypt("94", "a"));
+console.log("testing encrypt of 'a' with key '12'", encrypt("a", "12"));
+console.log("testing decrypt of 'a' with key '12'", decrypt("90", "12"));
